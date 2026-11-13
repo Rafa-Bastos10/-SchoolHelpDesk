@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #26364a;
+}
+
+.pagina {
+    display: flex;
+    min-height: 100vh;
+}
+
+.lado-esquerdo {
+    width: 42%;
+    background: #102f59;
+    color: white;
+    padding: 42px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    /* tem o poder posicionar outros elementos em relação a este elemento */
+    position: relative;
+
+    /* Esconde tudo que ultrapassar os limites desse elemento */
+    overflow: hidden;
+}
+
+.lado-esquerdo::after {
+    /* Cria um elemento vazio que pode ser usado para adicionar efeitos visuais */
+    content: "";
+    width: 360px;
+    height: 360px;
+    border: 55px solid rgba(35, 105, 190, 0.22);
+    border-radius: 50%;
+    /*Posiciona o elemento livremente dentro do elemento principal */
+    position: absolute;
+    /* Coloca o elemento 180px para baixo do limite inferior*/
+    bottom: -180px;
+    /* Move 145 graus para a esquerda*/
+    left: -145px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    background: transparent;
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.logo img {
+    display: block;
+    width: 290px;
+    max-width: 100%;
+    height: auto;
+}
+
+.texto-lateral {
+    max-width: 430px;
+    margin: 55px 0;
+    position: relative;
+    /* ele vai definir a ordem das camadas, deixando este elemento na frente de outros com valor menor */
+    z-index: 1;
+}
+
+.subtitulo {
+    color: #80b8f2;
+
+    /*tamanho do texto em 11px */
+    font-size: 11px;
+
+    /* ele vai deixar o texto em negrito*/
+    font-weight: bold;
+
+    /*serve para aumenta o espaço entre as letras */
+    letter-spacing: 1.5px;
+
+    /*cria um espaço de 14px abaixo do elemento */
+    margin-bottom: 14px;
+}
+
+.texto-lateral h1 {
+    font-size: 35px;
+
+    /*Ele serve para definir a distância entre uma linha de texto e outra */
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+/* Estiliza os parágrafos dentro de texto-lateral, exceto os subtítulos */
+.texto-lateral > p:not(.subtitulo) {
+    color: #d0dceb;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.vantagens {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.item-vantagem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e6eef8;
+    font-size: 14px;
+}
+
+.item-vantagem span {
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    background: #1764b5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.rodape-lateral {
+    color: #aabbd0;
+    font-size: 12px;
+    position: relative;
+     /* ele vai definir a ordem das camadas, deixando este elemento na frente de outros com valor menor */
+    z-index: 1;
+}
+
+.lado-direito {
+    width: 58%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 30px;
+    background: #f4f6f9;
+}
+
+.formulario-caixa {
+    width: 100%;
+    max-width: 440px;
+}
+
+.titulo-formulario {
+    margin-bottom: 28px;
+}
+
+.titulo-formulario h2 {
+    color: #183653;
+    font-size: 29px;
+    margin-bottom: 9px;
+}
+
+.titulo-formulario > p:last-child {
+    color: #788697;
+    font-size: 14px;
+}
+
+.campo {
+    display: flex;
+    /*Mantem o alinhamento das colunas */
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.campo label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #34465b;
+    margin-bottom: 8px;
+}
+
+.campo input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+    border: 1px solid #d5dce5;
+    border-radius: 6px;
+    background: white;
+    color: #26364a;
+    font-size: 14px;
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #2368b5;
+}
+
+.campo input::placeholder {
+    color: #a0aab6;
+}
+
+.campo small {
+    color: #8995a3;
+    font-size: 11px;
+    margin-top: 7px;
+}
+
+.botao-entrar {
+    width: 100%;
+    height: 47px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 6px;
+    background: #1976f3;
+    color: white;
+    font-size: 15px;
+    /*deixa o texto em negrito*/
+    font-weight: bold;
+    /* Muda o cursor para uma mãozinha, indicando que o elemento pode ser clicado */
+cursor: pointer;
+}
+
+.botao-entrar:hover {
+    background: #125397;
+}
+
+.link-cadastro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-top: 22px;
+    font-size: 13px;
+    color: #788697;
+}
+
+.link-cadastro a {
+    color: #1976f3;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link-cadastro a:hover {
+    text-decoration: underline;
+}
+
+.aviso-final {
+    margin-top: 28px;
+    text-align: center;
+    color: #929daa;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.aviso {
+    padding: 12px;
+    margin-bottom: 18px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.erro {
+    background: #fff0f0;
+    color: #b52d2d;
+    border: 1px solid #f2caca;
+}
+
+.sucesso {
+    background: #edf9f0;
+    color: #26733a;
+    border: 1px solid #c7e8ce;
+}
+
+/* Botão de mostrar/esconder senha */
+.campo-senha {
+    position: relative;
+}
+
+.campo-senha input {
+    padding-right: 46px;
+}
+
+.botao-olho {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 46px;
+    height: 46px;
+    border: none;
+    background: transparent;
+    color: #788697;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao-olho:hover {
+    color: #1976f3;
+}
+
+.botao-olho:not(.ativo) .olho-fechado,
+.botao-olho.ativo .olho-aberto {
+    display: none;
+}
