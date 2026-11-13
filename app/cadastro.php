@@ -1,16 +1,11 @@
 <?php
-session_start();
-
-require_once "conexao.php";
-require_once "crud.php";
+require_once __DIR__ . "/init.php";
 
 $erro = "";
 $mensagem = "";
 $nome = "";
 $email = "";
 
-
-// ?? Ele serv para ver se existe a variavel e ver se não é uma variável vazia (null)
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = trim($_POST["nome"] ?? "");
     $email = trim($_POST["email"] ?? "");
@@ -38,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "senha" => password_hash($senha, PASSWORD_DEFAULT)
                 ]);
 
-                // Após cadastrar, volta para a tela de login.
-                header("Location: ../login/login.php?cadastro=ok");
+                // Após cadastrar, volta para a tela de login (index.php).
+                header("Location: index.php?cadastro=ok");
                 exit;
             }
         } catch (PDOException $e) {
@@ -55,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - SchoolHelpDesk</title>
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="css/cadastro.css">
 </head>
 <body>
 
@@ -63,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="lado-esquerdo">
             <div class="logo">
-                <img src="../logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
+                <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
             </div>
 
             <div class="texto-lateral">
@@ -178,12 +173,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <button type="submit" class="botao-cadastrar">Cadastrar</button>
 
-
                 </form>
 
                 <div class="voltar-login">
                     <p>Já tem uma conta?</p>
-                    <a href="../login/login.php">Voltar para a tela de login</a>
+                    <a href="index.php">Voltar para a tela de login</a>
                 </div>
 
                 <p class="aviso-final">Seus dados serão usados somente para acessar o sistema e acompanhar seus chamados.</p>
@@ -194,11 +188,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-
         // Mostra ou esconde a senha ao clicar no olhinho
         document.querySelectorAll(".botao-olho").forEach(function (botao) {
             botao.addEventListener("click", function () {
-                var campo = document.getElementById(botao.dataset.alvo);w
+                var campo = document.getElementById(botao.dataset.alvo);
                 var mostrar = campo.type === "password";
 
                 campo.type = mostrar ? "text" : "password";

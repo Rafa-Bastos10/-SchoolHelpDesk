@@ -1,0 +1,209 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f6fa;
+  color: #19365b;
+}
+
+.menu {
+  width: 220px;
+  height: 100vh;
+  background-color: #142f59;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.menu h2 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.menu a {
+  display: block;
+  color: #d5e0ef;
+  text-decoration: none;
+  padding: 12px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.menu a:hover {
+  background-color: #254879;
+}
+
+.menu a.ativo {
+  background-color: #3478ed;
+  color: white;
+}
+
+.conteudo {
+  margin-left: 260px;
+}
+
+.topo {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topo p {
+  font-size: 13px;
+}
+
+.pagina {
+  padding: 25px;
+}
+
+h1 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.subtitulo {
+  color: gray;
+  font-size: 13px;
+}
+
+.titulo-lista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.novo {
+  background-color: #3478ed;
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.abas {
+  display: flex;
+  gap: 20px;
+  background-color: white;
+  padding: 15px;
+  margin-top: 25px;
+}
+
+.aba {
+  text-decoration: none;
+  color: gray;
+  font-size: 13px;
+  padding: 10px;
+}
+
+.aba.ativa {
+  color: #3478ed;
+  border-bottom: 2px solid #3478ed;
+}
+
+.filtros {
+  display: flex;
+  gap: 10px;
+  background-color: white;
+  padding: 15px;
+}
+
+.filtros input {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  border: 1px solid #d7dfe9;
+  border-radius: 6px;
+}
+
+.filtros select {
+  padding: 10px;
+  border: 1px solid #d7dfe9;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.prioridade {
+  padding: 5px 8px;
+  border-radius: 15px;
+  font-size: 10px;
+}
+
+.baixa {
+  background-color: #dff5e9;
+  color: #24834d;
+}
+
+.media {
+  background-color: #fff0d8;
+  color: #a66b14;
+}
+
+.alta {
+  background-color: #ffe5d8;
+  color: #c45c2a;
+}
+
+.urgente {
+  background-color: #ffe1e1;
+  color: #c52f2f;
+}
+
+.status {
+  padding: 5px 8px;
+  border-radius: 15px;
+  font-size: 10px;
+}
+
+.aberto {
+  background-color: #e1edff;
+  color: #3478ed;
+}
+
+.andamento {
+  background-color: #fff0d8;
+  color: #a66b14;
+}
+
+.aguardando {
+  background-color: #eee1ff;
+  color: #8050bd;
+}
+
+.concluido {
+  background-color: #dff5e9;
+  color: #24834d;
+}
+
+.cancelado {
+  background-color: #edf0f4;
+  color: #697586;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  font-size: 12px;
+  color: gray;
+}
+
+.paginacao a {
+  text-decoration: none;
+  color: #19365b;
+  border: 1px solid #d7dfe9;
+  padding: 8px 11px;
+  border-radius: 5px;
+  margin-left: 4px;
+}
+
+.paginacao a.ativo {
+  background-color: #3478ed;
+  color: white;
+}

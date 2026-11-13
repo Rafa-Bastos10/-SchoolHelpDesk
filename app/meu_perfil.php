@@ -1,13 +1,9 @@
 <?php
-
-session_start();
-
-require_once "../Página_principal/conexao.php";
-require_once "../Página_principal/crud.php";
+require_once __DIR__ . "/init.php";
 
 // Busca os dados da conta que está conectada.
 if (!isset($_SESSION["id_usuario"])) {
-    header("Location: ../login/login.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -16,7 +12,7 @@ $usuario = read($pdo, "usuario", "id = ?", [$idUsuario]);
 
 if (!$usuario) {
     session_destroy();
-    header("Location: ../login/login.php");
+    header("Location: index.php");
     exit;
 }
 
@@ -32,26 +28,26 @@ $nomeNivel = ($usuario["nivel"] === "administrador") ? "Administrador" : "Técni
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu perfil - SchoolHelpDesk</title>
-    <link rel="stylesheet" href="meu_perfil.css">
+    <link rel="stylesheet" href="css/meu_perfil.css">
 </head>
 <body>
 
     <aside class="menu">
         <div class="logo">
-            <img src="../logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
+            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
         </div>
 
         <nav>
-            <a href="../Página_principal/painel.php">Início</a>
-            <a href="../Página_principal/abrir_chamado.php">Abrir chamado</a>
-            <a href="../Página_principal/chamados.php">Meus chamados</a>
-            <a href="../Página_principal/historico.php">Histórico</a>
+            <a href="painel.php">Início</a>
+            <a href="abrir_chamado.php">Abrir chamado</a>
+            <a href="chamados.php">Meus chamados</a>
+            <a href="historico.php">Histórico</a>
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php" class="ativo">Meu perfil</a>
         </nav>
 
-        <a href="../login/logout.php" class="sair">Sair</a>
+        <a href="logout.php" class="sair">Sair</a>
     </aside>
 
     <main class="conteudo">
@@ -106,7 +102,7 @@ $nomeNivel = ($usuario["nivel"] === "administrador") ? "Administrador" : "Técni
             </div>
         </section>
 
-        <a href="../Página_principal/painel.php" class="botao-voltar">Voltar ao painel</a>
+        <a href="painel.php" class="botao-voltar">Voltar ao painel</a>
 
     </main>
 

@@ -1,16 +1,11 @@
 <?php
-
-session_start();
+require_once __DIR__ . "/init.php";
 
 // Só entra no painel quem fez login.
 if (!isset($_SESSION['id_usuario'])) {
-    header("Location: ../login/login.php");
+    header("Location: index.php");
     exit;
 }
-
-// Conecta ao banco e carrega as funções do CRUD.
-require_once "conexao.php";
-require_once "crud.php";
 
 // Se o login já tiver sido criado, o nome salvo na sessão será exibido.
 $nomeUsuario = $_SESSION['nome'] ?? 'Usuário';
@@ -70,26 +65,26 @@ unset($chamado);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolHelpDesk</title>
-    <link rel="stylesheet" href="painel.css">
+    <link rel="stylesheet" href="css/painel.css">
 </head>
 <body>
 
     <div class="menu">
         <div class="logo">
-            <img src="../logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
+            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
         </div>
 
         <nav>
             <a href="painel.php" class="ativo">Início</a>
             <a href="abrir_chamado.php">Abrir chamado</a>
-            <a href="chamados.php">Meus chamados</a>
+            <a href="chamado.php">Meus chamados</a>
             <a href="historico.php">Histórico</a>
 
             <p class="grupo">CONTA</p>
-            <a href="../Meu_perfil/meu_perfil.php">Meu perfil</a>
+            <a href="meu_perfil.php">Meu perfil</a>
         </nav>
 
-        <a href="../login/logout.php" class="sair">Sair</a>
+        <a href="logout.php" class="sair">Sair</a>
     </div>
 
     <main class="conteudo">
