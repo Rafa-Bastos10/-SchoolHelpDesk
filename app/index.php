@@ -9,6 +9,7 @@ try {
     $pdo->query('SELECT 1');
 } catch (Throwable $exception) {
     $databaseStatus = 'Indisponível';
+    echo $exception->getMessage();
 }
 ?>
 <!doctype html>
