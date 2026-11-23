@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+    color: #222;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* menu lateral */
+.menu {
+    width: 220px;
+    background: #1e293b;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.logo {
+    background: transparent;
+    border-radius: 8px;
+    padding: 7px;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.menu a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.menu a:hover {
+    background: #334155;
+}
+
+.menu a.ativo {
+    background: #2563eb;
+    color: #fff;
+}
+
+.grupo {
+    color: #64748b;
+    font-size: 12px;
+    /* Define as margens: 16px em cima, 0 à direita, 4px embaixo e 12px à esquerda */
+    margin: 16px 0 4px 12px;
+}
+
+.menu .sair {
+    /* Faz a margem superior ocupar o espaço disponível, empurrando o elemento para baixo */
+    margin-top: auto;
+}
+
+/* conteúdo */
+.conteudo {
+    flex: 1;
+    padding: 24px 32px;
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.topo input {
+    width: 320px;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.saudacao {
+    font-size: 28px;
+}
+
+.subtitulo {
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.botao {
+    background: #2563eb;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+}
+
+.botao:hover {
+    background: #1d4ed8;
+}
+
+/* cards */
+.cards {
+    display: grid;
+    /*- grid-template-columns: define a quantidade e o tamanho das colunas.
+
+        - repeat(4, ...): repete a configuração 4 vezes.
+
+        - 1fr: divide o espaço disponível igualmente entre as colunas.
+
+        Na prática: ele cria 4 colunas com o mesmo tamanho. */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.numero {
+    /* Faz o elemento ocupar uma linha inteira, iniciando em uma nova linha */
+    display: block;
+    font-size: 28px;
+}
+
+.rotulo-aberto {
+    background: #dbeafe; 
+    color: #1151d1;
+    font-size: 14px;
+}
+
+.rotulo-andamento {
+    background: #fef3c7;
+    color: #b45309;
+    font-size: 14px;
+}
+
+.rotulo-concluido {
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 14px;
+}
+
+.rotulo-cancelado {
+     background: #FFEFEA; 
+    color: #ff1a1a; 
+    font-size: 14px;
+}
+/* tabela */
+.tabela-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.tabela-titulo {
+    font-size: 17px;
+    margin-bottom: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.cabecalho th {
+    color: #6b7280;
+    font-size: 12px;
+
+    /* Transforma todas as letras do texto em maiúsculas */
+    text-transform: uppercase;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.aberto     { 
+    background: #dbeafe; 
+    color: #1d4ed8; 
+    }
+
+.andamento  { 
+    background: #fef3c7; 
+    color: #b45309; 
+    }
+    
+.cancelado { 
+    background: #FFEFEA; 
+    color: #ff1a1a; 
+    }
+
+.concluido  { 
+    background: #dcfce7; 
+    color: #15803d; 
+    }
+
+
+@media (max-width: 800px) {
+    body {
+        flex-direction: column;
+    }
+    .menu {
+        width: 100%;
+    }
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .titulo {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

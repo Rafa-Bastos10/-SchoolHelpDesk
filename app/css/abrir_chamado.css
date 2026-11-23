@@ -1,0 +1,210 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f3f6fa;
+  color: #19365b;
+}
+
+.menu {
+  width: 220px;
+  height: 100vh;
+  background-color: #142f59;
+  padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.menu h2 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.menu a {
+  display: block;
+  color: #d5e0ef;
+  text-decoration: none;
+  padding: 12px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.menu a:hover {
+  background-color: #254879;
+}
+
+.menu a.ativo {
+  background-color: #3478ed;
+  color: white;
+}
+
+.conteudo {
+  margin-left: 260px;
+}
+
+.topo {
+  background-color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topo p {
+  font-size: 13px;
+}
+
+.pagina {
+  padding: 25px;
+}
+
+h1 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.subtitulo {
+  color: gray;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+.formulario {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 750px;
+  border: 1px solid #e1e7ef;
+}
+
+form label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d7dfe9;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+.tipos {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tipo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #d7dfe9;
+  padding: 12px;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.tipo input {
+  width: auto;
+}
+
+.tipo strong {
+  display: block;
+  font-size: 13px;
+}
+
+.tipo small {
+  font-size: 11px;
+  color: gray;
+}
+
+.linha {
+  display: flex;
+  gap: 15px;
+}
+
+.linha div {
+  flex: 1;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.prioridades {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.prioridades label {
+  border: 1px solid #d7dfe9;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.prioridades input {
+  width: auto;
+}
+
+.prioridades .selecionada {
+  background-color: #e5efff;
+  color: #3478ed;
+  border-color: #3478ed;
+}
+
+.anexo {
+  border: 1px dashed #a9bfdc;
+  background-color: #f8fbff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.anexo input {
+  width: 100%;
+}
+
+.anexo small {
+  display: block;
+  color: gray;
+  margin-top: 10px;
+}
+
+.botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.botoes button,
+.cancelar {
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.botoes button {
+  background-color: #3478ed;
+  color: white;
+  border: none;
+}
+
+.cancelar {
+  background-color: white;
+  border: 1px solid #d7dfe9;
+  color: #19365b;
+}
