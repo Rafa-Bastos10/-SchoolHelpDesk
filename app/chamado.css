@@ -1,0 +1,360 @@
+chamado.css
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #f4f6fb;
+    color: #1e293b;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Menu lateral (idêntico ao painel.css) */
+.menu {
+    width: 240px;
+    background-color: #162138;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    flex-shrink: 0;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo img {
+    width: 170px;
+    max-width: 100%;
+    height: auto;
+}
+
+.menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu nav a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.menu nav a:hover {
+    background-color: #233252;
+    color: #ffffff;
+}
+
+.menu nav a.ativo {
+    background-color: #2c66f5;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.grupo {
+    margin-top: 18px;
+    margin-bottom: 4px;
+    padding-left: 14px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #64748b;
+}
+
+.sair {
+    margin-top: auto;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.sair:hover {
+    background-color: #233252;
+    color: #ffffff;
+}
+
+/* Área principal */
+.conteudo {
+    flex: 1;
+    padding: 24px 32px;
+}
+
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
+}
+
+.caminho {
+    color: #64748b;
+}
+
+.caminho strong {
+    color: #1e293b;
+}
+
+.nome-topo {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.cabecalho-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.cabecalho-lista h1 {
+    font-size: 26px;
+    color: #162138;
+    margin-bottom: 4px;
+}
+
+.subtitulo {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.botao {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background: #2c66f5;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.botao:hover {
+    background: #1d4ed8;
+}
+
+/* Cartão da tabela */
+.cartao-tabela {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Abas */
+.abas {
+    display: flex;
+    gap: 24px;
+    padding: 0 24px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.abas a {
+    padding: 16px 2px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.abas a span {
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.abas a:hover {
+    color: #2c66f5;
+}
+
+.abas a.ativa {
+    color: #2c66f5;
+    border-bottom-color: #2c66f5;
+    font-weight: 600;
+}
+
+.abas a.ativa span {
+    background: #eef4ff;
+    color: #2c66f5;
+}
+
+/* Filtros */
+.filtros {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.campo-busca {
+    flex: 1;
+    font: inherit;
+    font-size: 14px;
+    padding: 9px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.campo-busca:focus {
+    outline: 2px solid #bfdbfe;
+    border-color: #2c66f5;
+    background: #ffffff;
+}
+
+.filtros select {
+    font: inherit;
+    font-size: 13px;
+    padding: 9px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1e293b;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 12px 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13.5px;
+    color: #334155;
+}
+
+tr:hover td {
+    background: #f8fafc;
+}
+
+.codigo {
+    color: #2c66f5;
+    font-weight: 600;
+}
+
+.col-titulo {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.responsavel {
+    color: #64748b;
+}
+
+.vazio {
+    text-align: center;
+    padding: 28px;
+    color: #64748b;
+}
+
+/* Tags de prioridade e status */
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.prio-baixa {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.prio-media {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.prio-alta {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.prio-urgente {
+    background: #fecaca;
+    color: #991b1b;
+}
+
+.status-aberto {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-em_andamento {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.status-aguardando {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+
+.status-concluido {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-cancelado {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+/* Botão excluir */
+button.excluir {
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    background: #ffffff;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.excluir:hover {
+    background: #fef2f2;
+}
+
+/* Rodapé da tabela */
+.rodape-tabela {
+    padding: 14px 24px;
+    font-size: 13px;
+    color: #64748b;
+    background: #ffffff;
+}
