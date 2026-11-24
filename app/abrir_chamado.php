@@ -1,3 +1,5 @@
+
+
 <?php
 require_once __DIR__ . "/init.php";
 
@@ -54,14 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <aside class="menu">
         <div class="logo">
-            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
+            <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
         </div>
 
         <nav>
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php" class="ativo">Abrir chamado</a>
             <a href="chamado.php">Meus chamados</a>
-            <a href="historico.php">Histórico</a>
+            
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php">Meu perfil</a>
@@ -158,10 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <small class="dica">A equipe responsável confirma a prioridade final</small>
                 </div>
 
-                <div>
-                    <label class="rotulo">Anexar evidências</label>
-                    <input type="file" name="evidencia" class="campo-arquivo" accept=".jpg,.jpeg,.png,.pdf">
-                </div>
+                
             </div>
 
             <div class="rodape">
