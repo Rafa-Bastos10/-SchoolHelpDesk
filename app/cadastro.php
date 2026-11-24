@@ -27,14 +27,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($usuario) {
                 $erro = "Esse e-mail já está cadastrado.";
             } else {
-                create($pdo, "usuario", [
+                create($pdo, "cliente", [
                     "nome" => $nome,
                     "email" => $email,
                     "senha" => password_hash($senha, PASSWORD_DEFAULT)
                 ]);
 
                 // Após cadastrar, volta para a tela de login (index.php).
-                header("Location: index.php?cadastro=ok");
+                header("Location: login.php?cadastro=ok");
                 exit;
             }
         } catch (PDOException $e) {
