@@ -145,6 +145,10 @@ td.descricao { max-width: 260px; color: #4b5563; }
 .form-status { display: flex; gap: 6px; align-items: center; }
 .status-select { padding: 6px; border-radius: 4px; border: 1px solid #d1d5db; font-size: 12px; }
 
+/* ---------- Selo de status (histórico) ---------- */
+.selo { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: bold; }
+.selo-concluido { background: #dcfce7; color: #15803d; }
+
 /* ---------- Formulário (perfil) ---------- */
 .formulario { display: flex; flex-direction: column; gap: 8px; }
 .formulario label { font-size: 13px; color: #6b7280; margin-top: 6px; }

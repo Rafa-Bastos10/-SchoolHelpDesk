@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Define qual aba será exibida.
 $aba = $_GET['aba'] ?? 'inicio';
-if (!in_array($aba, ['inicio', 'chamados', 'perfil'], true)) {
+if (!in_array($aba, ['inicio', 'chamados', 'historico', 'perfil'], true)) {
     $aba = 'inicio';
 }
 
@@ -188,6 +188,18 @@ if ($aba === 'chamados') {
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $lista = $stmt->fetchAll();
+}
+
+// Histórico de atendimento: só chamados concluídos.
+if ($aba === 'historico') {
+    $stmt = $pdo->prepare(
+        "SELECT id, descricao, data_chamado AS data, status_chamado AS status
+         FROM chamado
+         WHERE status_chamado = 'concluido'
+         ORDER BY data_chamado DESC, id DESC"
+    );
+    $stmt->execute();
+    $historico = $stmt->fetchAll();
 }
 
 if ($aba === 'perfil') {
