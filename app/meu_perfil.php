@@ -6,9 +6,14 @@ if (!isset($_SESSION["id_usuario"])) {
     exit;
 }
 
-$idUsuario = $_SESSION["id_usuario"];
-$stmt = $pdo->prepare("SELECT * FROM usuario WHERE id = ? LIMIT 1");
-$stmt->execute([$idUsuario]);
+$idConta = $_SESSION["id_usuario"];
+$nivelSessao = $_SESSION["nivel"] ?? "";
+
+// Cliente fica na tabela cliente; administrador e técnico ficam em usuario
+$tabela = ($nivelSessao === "cliente") ? "cliente" : "usuario";
+
+$stmt = $pdo->prepare("SELECT * FROM $tabela WHERE id = ? LIMIT 1");
+$stmt->execute([$idConta]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$usuario) {
@@ -17,8 +22,16 @@ if (!$usuario) {
     exit;
 }
 
-$_SESSION["nome"] = $usuario["nome"];
-$nomeNivel = ($usuario["nivel"] === "administrador") ? "Administrador" : "Técnico";
+// Na tabela cliente não existe a coluna nivel, então usa o da sessão
+$nivel = $usuario["nivel"] ?? $nivelSessao;
+
+$nomes = [
+    "administrador" => "Administrador",
+    "tecnico"       => "Técnico",
+    "cliente"       => "Cliente",
+];
+$nomeNivel = $nomes[$nivel] ?? "Usuário";
+
 $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
 ?>
 <!DOCTYPE html>
@@ -33,14 +46,14 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
 
     <aside class="menu">
         <div class="logo">
-            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
+            <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
         </div>
 
         <nav>
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php">Abrir chamado</a>
             <a href="chamado.php">Meus chamados</a>
-            <a href="historico.php">Histórico</a>
+            
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php" class="ativo">Meu perfil</a>
@@ -52,7 +65,7 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
     <main class="conteudo">
 
         <header class="topo">
-            <span class="caminho">CONTA / MEU PERFIL</span>
+            <span class="caminho">Conta / <strong>Meu Perfil</strong></span>
             <span class="nome-topo"><?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?></span>
         </header>
 
