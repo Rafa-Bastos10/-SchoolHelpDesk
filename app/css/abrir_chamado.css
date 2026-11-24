@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 * {
     box-sizing: border-box;
     margin: 0;
@@ -244,6 +249,7 @@ form.cartao textarea:focus {
     color: #64748b;
 }
 
+<<<<<<< HEAD
 .campo-arquivo {
     width: 100%;
     padding: 14px;
@@ -252,6 +258,9 @@ form.cartao textarea:focus {
     background: #f8fafc;
     font-size: 13px;
 }
+=======
+
+>>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 
 /* Botões */
 .rodape {

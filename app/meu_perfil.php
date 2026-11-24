@@ -33,14 +33,14 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
 
     <aside class="menu">
         <div class="logo">
-            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
+            <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
         </div>
 
         <nav>
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php">Abrir chamado</a>
             <a href="chamado.php">Meus chamados</a>
-            <a href="historico.php">Histórico</a>
+            
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php" class="ativo">Meu perfil</a>
@@ -52,7 +52,7 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
     <main class="conteudo">
 
         <header class="topo">
-            <span class="caminho">CONTA / MEU PERFIL</span>
+            <span class="caminho">Conta / <strong>Meu Perfil</strong></span>
             <span class="nome-topo"><?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?></span>
         </header>
 
