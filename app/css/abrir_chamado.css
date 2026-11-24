@@ -1,4 +1,4 @@
-abiri chamado css
+
 
 * {
     box-sizing: border-box;
@@ -246,14 +246,7 @@ form.cartao textarea:focus {
     color: #64748b;
 }
 
-.campo-arquivo {
-    width: 100%;
-    padding: 14px;
-    border: 1px dashed #cbd5e1;
-    border-radius: 8px;
-    background: #f8fafc;
-    font-size: 13px;
-}
+
 
 /* Botões */
 .rodape {

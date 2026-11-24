@@ -1,3 +1,8 @@
+<?php 
+require_once __DIR__ . '/../admin.php';
+?>
+
+<link rel="stylesheet" href="css/admin.css">
 <section class="titulo">
     <div>
         <h1 class="saudacao">Olá, <?= h($usuarioLogado['nome']) ?></h1>

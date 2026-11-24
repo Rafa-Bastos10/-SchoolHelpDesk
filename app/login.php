@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="lado-esquerdo">
             <div class="logo">
-                <img src="/imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
+                <img src="/imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
             </div>
 
             <div class="texto-lateral">

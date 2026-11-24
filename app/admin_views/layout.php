@@ -1,16 +1,19 @@
+<?php 
+require_once __DIR__ . '/../admin.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SchoolHelpDesk - Administrador</title>
-    <link rel="stylesheet" href="painel.css">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="css/painel.css">
+  
 </head>
 <body>
     <aside class="menu">
         <div class="logo">
-            <img src="img/logo.png" alt="SchoolHelpDesk">
+            <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
         </div>
 
         <nav>

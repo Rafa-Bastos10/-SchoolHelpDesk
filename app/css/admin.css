@@ -37,9 +37,6 @@ td.descricao { max-width: 260px; color: #4b5563; }
 
 .resumo-linha { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e5e7eb; font-size: 14px; }
 
-@media (max-width: 800px) {
-    .duas-colunas { grid-template-columns: 1fr; }
-}
 
 /* tela de login */
 .pagina-login { align-items: center; justify-content: center; }
