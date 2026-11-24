@@ -56,22 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     <aside class="menu">
         <div class="logo">
-<<<<<<< HEAD
-            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
-=======
             <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
         </div>
 
         <nav>
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php" class="ativo">Abrir chamado</a>
             <a href="chamado.php">Meus chamados</a>
-<<<<<<< HEAD
-            <a href="historico.php">Histórico</a>
-=======
             
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php">Meu perfil</a>
@@ -168,14 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <small class="dica">A equipe responsável confirma a prioridade final</small>
                 </div>
 
-<<<<<<< HEAD
-                <div>
-                    <label class="rotulo">Anexar evidências</label>
-                    <input type="file" name="evidencia" class="campo-arquivo" accept=".jpg,.jpeg,.png,.pdf">
-                </div>
-=======
                 
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
             </div>
 
             <div class="rodape">

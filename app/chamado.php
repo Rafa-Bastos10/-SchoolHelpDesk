@@ -42,22 +42,14 @@ $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <aside class="menu">
         <div class="logo">
-<<<<<<< HEAD
-            <img src="imagem/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
-=======
             <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
         </div>
 
         <nav>
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php">Abrir chamado</a>
             <a href="chamado.php" class="ativo">Meus chamados</a>
-<<<<<<< HEAD
-            <a href="historico.php">Histórico</a>
-=======
             
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php">Meu perfil</a>

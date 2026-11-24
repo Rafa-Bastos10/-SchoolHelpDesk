@@ -219,5 +219,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         });
     </script>
 
+    <script>
+    var caixa = document.querySelector(".formulario-caixa");
+    var campos = caixa.querySelectorAll("input");
+
+    // Brilho suave que acompanha o mouse na caixa
+    caixa.addEventListener("mousemove", function (e) {
+        var rect = caixa.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        caixa.style.setProperty("--mouse-x", x + "px");
+        caixa.style.setProperty("--mouse-y", y + "px");
+    });
+
+    // Acende a borda azul e destaca o card ao clicar em um campo
+    campos.forEach(function (input) {
+        input.addEventListener("focus", function () {
+            caixa.classList.add("digitando");
+        });
+        input.addEventListener("blur", function () {
+            caixa.classList.remove("digitando");
+        });
+    });
+</script>
+
 </body>
 </html>

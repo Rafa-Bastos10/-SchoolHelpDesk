@@ -5,39 +5,13 @@
 }
 
 body {
-<<<<<<< HEAD
-    font-family: Arial, sans-serif;
-    background: #f3f4f6;
-=======
    font-family: "Segoe UI", Arial, sans-serif;
     background-color: #f4f6fb;
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
     color: #222;
     display: flex;
     min-height: 100vh;
 }
 
-<<<<<<< HEAD
-/* Menu lateral igual ao painel */
-.menu {
-    width: 220px;
-    background: #1e293b;
-    padding: 24px 16px;
-    display: flex;
-    flex-direction: column;
-}
-
-.logo {
-    background: transparent;
-    border-radius: 8px;
-    padding: 7px;
-    margin-bottom: 20px;
-}
-
-.logo img {
-    display: block;
-    width: 100%;
-=======
 .menu {
     width: 240px;
     background-color: #162138;
@@ -56,42 +30,12 @@ body {
 .logo img {
     width: 170px;
     max-width: 100%;
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
     height: auto;
 }
 
 .menu nav {
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    gap: 6px;
-}
-
-.menu a {
-    color: #cbd5e1;
-    text-decoration: none;
-    padding: 10px 12px;
-    border-radius: 6px;
-}
-
-.menu a:hover {
-    background: #334155;
-}
-
-.menu a.ativo {
-    background: #2563eb;
-    color: #fff;
-}
-
-.grupo {
-    color: #64748b;
-    font-size: 12px;
-    margin: 16px 0 4px 12px;
-}
-
-.menu .sair {
-    margin-top: auto;
-=======
     gap: 8px;
 }
 
@@ -136,7 +80,6 @@ body {
 .sair:hover {
     background-color: #233252;
     color: #ffffff;
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 }
 
 /* Conteúdo principal */
@@ -149,21 +92,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-<<<<<<< HEAD
-    margin-bottom: 28px;
-}
-
-.caminho {
-    color: #6b7280;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-}
-
-.nome-topo {
-    color: #334155;
-    font-size: 14px;
-=======
     margin-bottom: 24px;
     padding-bottom: 14px;
     border-bottom: 1px solid #e2e8f0;
@@ -180,7 +108,6 @@ body {
 .nome-topo {
     font-weight: 600;
     color: #1e293b;
->>>>>>> 1a3c625a42a8713d1c966112dbdfa431f2d4a51a
 }
 
 .titulo {
