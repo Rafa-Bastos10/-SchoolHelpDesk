@@ -159,3 +159,17 @@ td.descricao { max-width: 260px; color: #4b5563; }
     .conteudo { padding: 20px 16px; }
     .duas-colunas { grid-template-columns: 1fr; }
 }
+/* ---------- Cabeçalho de boas-vindas ---------- */
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.saudacao { font-size: 26px; color: #162138; margin-bottom: 4px; }
+.titulo .subtitulo { margin-bottom: 0; }
+
+/* ---------- Seções sem caixa (Resumo / Locais) ---------- */
+.secao h2 { font-size: 22px; margin-bottom: 10px; }
+

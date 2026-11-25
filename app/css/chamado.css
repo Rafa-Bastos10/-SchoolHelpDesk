@@ -318,9 +318,11 @@ tr:hover td {
     color: #b45309;
 }
 
+
 .status-aguardando {
-    background: #f3e8ff;
-    color: #7e22ce;
+    background: #dbeafe;
+    color: #2563eb;
+
 }
 
 .status-concluido {
