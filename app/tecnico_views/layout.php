@@ -1,15 +1,29 @@
 <?php
 // Layout do painel do técnico. Variáveis vindas do tecnico.php:
-// $aba, $msg, $busca, $filtro, $filtroUrg, $cards, $abertos, $total,
-// $porLocal, $lista, $historico, $perfil
+// $aba, $msg, $busca, $filtro, $cards, $total, $cont, $meusChamados, $lista, $historico, $perfil
 
 require_once __DIR__ . "/../tecnico.php";
 
 $nomeTecnico = $_SESSION['nome'] ?? 'Técnico';
-$menu = [
+
+$menuPrincipal = [
     'inicio'    => 'Início',
     'chamados'  => 'Todos os chamados',
     'historico' => 'Histórico de atendimento'
+];
+
+$tituloAba = [
+    'inicio'    => 'Início',
+    'chamados'  => 'Chamados',
+    'historico' => 'Histórico de atendimento',
+    'perfil'    => 'Meu perfil'
+];
+
+$abasStatus = ['' => 'Todos'] + [
+    'aguardando'   => 'Aguardando',
+    'em andamento' => 'Em andamento',
+    'concluido'    => 'Concluídos',
+    'cancelado'    => 'Cancelados'
 ];
 ?>
 <!DOCTYPE html>
@@ -22,267 +36,263 @@ $menu = [
 </head>
 <body>
 
-<aside class="menu">
-    <div class="logo">
-        <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
-    </div>
+<aside class="menu-lateral">
+    <div class="logo">SchoolHelpDesk</div>
 
     <nav>
-        <?php foreach ($menu as $chave => $rotulo): ?>
+        <?php foreach ($menuPrincipal as $chave => $rotulo): ?>
             <a href="tecnico.php?aba=<?= h($chave) ?>" class="<?= $aba === $chave ? 'ativo' : '' ?>">
                 <?= h($rotulo) ?>
             </a>
         <?php endforeach; ?>
 
-        <p class="grupo">CONTA</p>
+        <span class="menu-titulo">Conta</span>
         <a href="tecnico.php?aba=perfil" class="<?= $aba === 'perfil' ? 'ativo' : '' ?>">Meu perfil</a>
     </nav>
 
     <a href="tecnico.php?sair=1" class="sair">Sair</a>
 </aside>
 
-<main class="conteudo">
+<div class="area">
 
     <header class="topo">
-        <?php if ($aba === 'perfil'): ?>
-            <span class="caminho">Conta / <strong>Meu Perfil</strong></span>
-        <?php else: ?>
-            <strong class="marca-topo">SchoolHelpdesk</strong>
-        <?php endif; ?>
-        <span id="nomeUsuario"><?= h($nomeTecnico) ?> (Técnico)</span>
+        <div class="trilha">Técnico / <strong><?= h($tituloAba[$aba]) ?></strong></div>
+        <div class="topo-usuario"><?= h($nomeTecnico) ?></div>
     </header>
 
-    <?php if ($msg): ?>
-        <div class="alerta <?= h($msg[0]) ?>"><?= h($msg[1]) ?></div>
-    <?php endif; ?>
+    <main class="conteudo">
 
-    <?php if ($aba === 'inicio'): ?>
+        <?php if ($msg): ?>
+            <div class="alerta <?= h($msg[0]) ?>"><?= h($msg[1]) ?></div>
+        <?php endif; ?>
 
-        <section class="titulo">
-            <div>
-                <h1 class="saudacao">Olá, <?= h($nomeTecnico) ?></h1>
-                <p class="subtitulo">Veja como estão os chamados da escola</p>
+        <?php if ($aba === 'inicio'): ?>
+
+            <div class="cabecalho">
+                <div>
+                    <h1>Olá, <?= h($nomeTecnico) ?></h1>
+                    <p class="subtitulo">Resumo geral dos chamados e prioridades da escola</p>
+                </div>
+                <a href="tecnico.php?aba=chamados" class="botao">Ver chamados</a>
             </div>
-            <a href="tecnico.php?aba=chamados" class="botao">Gerenciar chamados</a>
-        </section>
 
-        <div class="cards">
-            <?php foreach ($cards as [$qtd, $classe, $rotulo]): ?>
-                <div class="card">
-                    <strong><?= (int) $qtd ?></strong>
-                    <span class="<?= h($classe) ?>"><?= h($rotulo) ?></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
+            <div class="cards">
+                <?php foreach ($cards as [$qtd, $classe, $rotulo]): ?>
+                    <div class="card card-<?= h($classe) ?>">
+                        <strong><?= (int) $qtd ?></strong>
+                        <span><?= h($rotulo) ?></span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
 
-        <div class="duas-colunas">
-            <section class="secao">
-                <h2>Resumo</h2>
-                <div class="resumo-linha">
-                    <span>Total de chamados</span>
-                    <strong><?= (int) $total ?></strong>
-                </div>
-                <div class="resumo-linha">
-                    <span>Chamados abertos</span>
-                    <strong><?= (int) $abertos ?></strong>
-                </div>
-            </section>
+            <div class="duas-colunas">
+                <section class="caixa">
+                    <div class="caixa-topo">
+                        <div>
+                            <h2>Meus chamados</h2>
+                            <p class="subtitulo">Chamados atribuídos a você em aberto</p>
+                        </div>
+                        <span class="etiqueta"><?= count($meusChamados) ?> em aberto</span>
+                    </div>
 
-            <section class="secao">
-                <h2>Locais com mais chamados</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Local</th>
-                            <th>Chamados</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php if (!$porLocal): ?>
-                        <tr><td colspan="2" class="vazio">Nenhum chamado registrado.</td></tr>
+                    <?php if (!$meusChamados): ?>
+                        <p class="vazio">Nenhum chamado atribuído a você no momento.</p>
                     <?php endif; ?>
-                    <?php foreach ($porLocal as $linha): ?>
-                        <tr>
-                            <td><?= h($linha['local']) ?></td>
-                            <td><?= (int) $linha['qtd'] ?></td>
-                        </tr>
+
+                    <?php foreach ($meusChamados as $c): ?>
+                        <div class="item-chamado">
+                            <span class="item-id"><?= h(num($c['id'])) ?></span>
+                            <span class="item-titulo"><?= h($c['titulo']) ?></span>
+                            <span class="prioridade prioridade-<?= h($c['prioridade']) ?>">
+                                <?= h(NOMES_PRIORIDADE[$c['prioridade']] ?? $c['prioridade']) ?>
+                            </span>
+                        </div>
                     <?php endforeach; ?>
-                    </tbody>
-                </table>
+                </section>
+
+                <section class="caixa">
+                    <div class="caixa-topo">
+                        <div>
+                            <h2>Resumo</h2>
+                            <p class="subtitulo">Chamados por status</p>
+                        </div>
+                    </div>
+
+                    <div class="resumo-linha destaque">
+                        <span>Total de chamados</span>
+                        <strong><?= (int) $total ?></strong>
+                    </div>
+                    <?php foreach (NOMES_STATUS as $valor => $rotulo): ?>
+                        <div class="resumo-linha">
+                            <span><?= h($rotulo) ?></span>
+                            <strong><?= (int) $cont[$valor] ?></strong>
+                        </div>
+                    <?php endforeach; ?>
+
+                    <a href="tecnico.php?aba=chamados" class="link-ver">Ver todos os chamados →</a>
+                </section>
+            </div>
+
+        <?php elseif ($aba === 'chamados'): ?>
+
+            <div class="cabecalho">
+                <div>
+                    <h1>Todos os chamados</h1>
+                    <p class="subtitulo"><?= count($lista) ?> chamados encontrados</p>
+                </div>
+            </div>
+
+            <section class="painel">
+                <div class="abas">
+                    <?php foreach ($abasStatus as $valor => $rotulo): ?>
+                        <?php
+                        $url = 'tecnico.php?aba=chamados';
+                        if ($valor !== '') { $url .= '&status=' . urlencode($valor); }
+                        if ($busca !== '') { $url .= '&busca=' . urlencode($busca); }
+                        ?>
+                        <a href="<?= h($url) ?>" class="<?= $filtro === $valor ? 'ativa' : '' ?>"><?= h($rotulo) ?></a>
+                    <?php endforeach; ?>
+                </div>
+
+                <form method="get" class="filtros">
+                    <input type="hidden" name="aba" value="chamados">
+                    <input type="hidden" name="status" value="<?= h($filtro) ?>">
+                    <input type="text" name="busca" placeholder="Buscar por número (#0001) ou título"
+                           value="<?= h($busca) ?>">
+                    <button type="submit" class="botao">Buscar</button>
+                </form>
+
+                <div class="tabela-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Título</th>
+                                <th>Solicitante</th>
+                                <th>Ambiente</th>
+                                <th>Data</th>
+                                <th>Técnico responsável</th>
+                                <th>Status</th>
+                                <th>Salvar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (!$lista): ?>
+                            <tr><td colspan="8">Nenhum chamado encontrado.</td></tr>
+                        <?php endif; ?>
+
+                        <?php foreach ($lista as $c): ?>
+                            <tr>
+                                <td class="col-id"><?= h(num($c['id'])) ?></td>
+                                <td class="col-titulo"><?= h($c['titulo']) ?></td>
+                                <td><?= h($c['solicitante']) ?></td>
+                                <td><?= h($c['local']) ?></td>
+                                <td><?= h(dataBr($c['data'])) ?></td>
+                                <td><?= h($c['tecnico']) ?></td>
+                                <td>
+                                    <select name="status" class="status-select"
+                                            form="status-<?= (int) $c['id'] ?>">
+                                        <?= opcoes(NOMES_STATUS, $c['status']) ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <form method="post" id="status-<?= (int) $c['id'] ?>">
+                                        <input type="hidden" name="acao" value="alterar_status">
+                                        <input type="hidden" name="id" value="<?= (int) $c['id'] ?>">
+                                        <button type="submit" class="botao-pequeno">Salvar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </section>
-        </div>
 
-    <?php elseif ($aba === 'chamados'): ?>
+        <?php elseif ($aba === 'historico'): ?>
 
-        <h1>Todos os chamados</h1>
-        <p class="subtitulo">Veja a descrição, o local e altere o status dos chamados</p>
-
-        <div class="tabela-box">
-            <form method="get" class="filtros">
-                <input type="hidden" name="aba" value="chamados">
-                <input type="text" name="busca" value="<?= h($busca) ?>"
-                       placeholder="Buscar por número, título, local ou solicitante">
-                <select name="status">
-                    <option value="">Todos os status</option>
-                    <?= opcoes(NOMES_STATUS, $filtro) ?>
-                </select>
-                <select name="urgencia">
-                    <option value="">Todas as urgências</option>
-                    <?= opcoes(URGENCIAS, $filtroUrg) ?>
-                </select>
-                <button type="submit" class="botao">Filtrar</button>
-            </form>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nº</th>
-                        <th>Título</th>
-                        <th>Descrição</th>
-                        <th>Local</th>
-                        <th>Solicitante</th>
-                        <th>Data</th>
-                        <th>Urgência</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if (!$lista): ?>
-                    <tr><td colspan="8" class="vazio">Nenhum chamado encontrado.</td></tr>
-                <?php endif; ?>
-
-                <?php foreach ($lista as $c): ?>
-                    <tr>
-                        <td><?= h(num($c['id'])) ?></td>
-                        <td><?= h($c['titulo']) ?></td>
-                        <td class="descricao"><?= h($c['descricao']) ?></td>
-                        <td><?= h($c['local']) ?></td>
-                        <td><?= h($c['solicitante']) ?></td>
-                        <td><?= h(dataBr($c['data'])) ?></td>
-                        <td><?= urgencia($c['urgencia'] ?? '') ?></td>
-                        <td>
-                            <form method="post" class="form-status">
-                                <input type="hidden" name="acao" value="alterar_status">
-                                <input type="hidden" name="id" value="<?= (int) $c['id'] ?>">
-                                <select name="status" class="status-select">
-                                    <?= opcoes(NOMES_STATUS, $c['status']) ?>
-                                </select>
-                                <button type="submit" class="botao-pequeno">Salvar</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-
-    <?php elseif ($aba === 'historico'): ?>
-
-        <h1>Histórico de atendimento</h1>
-        <p class="subtitulo">Chamados já concluídos</p>
-
-        <div class="tabela-box">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Descrição</th>
-                        <th>Status</th>
-                        <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php if (!$historico): ?>
-                    <tr><td colspan="4" class="vazio">Nenhum atendimento concluído ainda.</td></tr>
-                <?php endif; ?>
-
-                <?php foreach ($historico as $c): ?>
-                    <tr>
-                        <td class="codigo"><?= h(num($c['id'])) ?></td>
-                        <td class="descricao"><?= h($c['descricao']) ?></td>
-                        <td><span class="status concluido"><?= h(NOMES_STATUS[$c['status']]) ?></span></td>
-                        <td><?= h(dataBr($c['data'])) ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-
-    <?php elseif ($aba === 'perfil'): ?>
-
-        <?php
-            $nomePerfil  = $perfil['nome'];
-            $cargoPerfil = CARGOS[$perfil['nivel']] ?? 'Técnico';
-            $inicial     = mb_strtoupper(mb_substr(trim($nomePerfil), 0, 1, 'UTF-8'), 'UTF-8');
-        ?>
-
-        <section class="titulo">
-            <div>
-                <h1>Meu perfil</h1>
-                <p class="subtitulo">Visualize as informações da sua conta.</p>
-            </div>
-        </section>
-
-        <section class="perfil-principal">
-            <div class="avatar"><?= h($inicial) ?></div>
-
-            <div class="identificacao">
-                <h2><?= h($nomePerfil) ?></h2>
-                <p><?= h($perfil['email']) ?></p>
-                <span class="nivel"><?= h($cargoPerfil) ?></span>
-            </div>
-        </section>
-
-        <section class="informacoes">
-            <h2>Informações pessoais</h2>
-
-            <div class="grade-informacoes">
-                <div class="item">
-                    <span class="rotulo">Nome completo</span>
-                    <strong><?= h($nomePerfil) ?></strong>
-                </div>
-
-                <div class="item">
-                    <span class="rotulo">E-mail</span>
-                    <strong><?= h($perfil['email']) ?></strong>
-                </div>
-
-                <div class="item">
-                    <span class="rotulo">Número da conta</span>
-                    <strong><?= h(num($perfil['id'])) ?></strong>
-                </div>
-
-                <div class="item">
-                    <span class="rotulo">Tipo de usuário</span>
-                    <strong><?= h($cargoPerfil) ?></strong>
+            <div class="cabecalho">
+                <div>
+                    <h1>Histórico de atendimento</h1>
+                    <p class="subtitulo"><?= count($historico) ?> atendimentos concluídos</p>
                 </div>
             </div>
-        </section>
 
-        <section class="informacoes">
-            <h2>Alterar senha</h2>
+            <section class="painel">
+                <div class="tabela-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descrição</th>
+                                <th>Status</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (!$historico): ?>
+                            <tr><td colspan="4">Nenhum atendimento concluído ainda.</td></tr>
+                        <?php endif; ?>
 
-            <form method="post" class="formulario formulario-senha">
-                <input type="hidden" name="acao" value="alterar_senha">
+                        <?php foreach ($historico as $c): ?>
+                            <tr>
+                                <td class="col-id"><?= h(num($c['id'])) ?></td>
+                                <td class="descricao"><?= h($c['descricao']) ?></td>
+                                <td><span class="selo selo-concluido"><?= h(NOMES_STATUS[$c['status']]) ?></span></td>
+                                <td><?= h(dataBr($c['data'])) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-                <label for="senha_atual">Senha atual</label>
-                <input type="password" id="senha_atual" name="senha_atual" required>
+        <?php elseif ($aba === 'perfil'): ?>
 
-                <label for="senha_nova">Nova senha</label>
-                <input type="password" id="senha_nova" name="senha_nova" minlength="6" required>
+            <div class="cabecalho">
+                <div>
+                    <h1>Meu perfil</h1>
+                    <p class="subtitulo">Visualize as informações da sua conta.</p>
+                </div>
+            </div>
 
-                <label for="senha_confirma">Confirmar nova senha</label>
-                <input type="password" id="senha_confirma" name="senha_confirma" minlength="6" required>
+            <section class="painel perfil-topo">
+                <div class="avatar"><?= h(mb_strtoupper(mb_substr($perfil['nome'], 0, 1))) ?></div>
+                <div>
+                    <h2><?= h($perfil['nome']) ?></h2>
+                    <p class="perfil-email"><?= h($perfil['email']) ?></p>
+                    <span class="etiqueta"><?= h(CARGOS[$perfil['nivel']] ?? $perfil['nivel']) ?></span>
+                </div>
+            </section>
 
-                <button type="submit" class="botao">Salvar nova senha</button>
-            </form>
-        </section>
+            <section class="painel">
+                <h2>Informações pessoais</h2>
+                <div class="grade-info">
+                    <div class="info">
+                        <span>Nome completo</span>
+                        <strong><?= h($perfil['nome']) ?></strong>
+                    </div>
+                    <div class="info">
+                        <span>E-mail</span>
+                        <strong><?= h($perfil['email']) ?></strong>
+                    </div>
+                    <div class="info">
+                        <span>Número da conta</span>
+                        <strong><?= h(num($perfil['id'])) ?></strong>
+                    </div>
+                    <div class="info">
+                        <span>Tipo de usuário</span>
+                        <strong><?= h(CARGOS[$perfil['nivel']] ?? $perfil['nivel']) ?></strong>
+                    </div>
+                </div>
+            </section>
 
-        <a href="tecnico.php?aba=inicio" class="botao botao-voltar">Voltar ao painel</a>
+            <a href="tecnico.php?aba=inicio" class="botao">Voltar ao início</a>
 
-    <?php endif; ?>
+        <?php endif; ?>
 
-</main>
+    </main>
+</div>
 
 </body>
 </html>
