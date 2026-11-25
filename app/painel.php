@@ -102,24 +102,28 @@ $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="abrir_chamado.php" class="botao">+ Abrir novo chamado</a>
         </section>
 
-        <section class="cards">
-            <div class="card">
-                <strong class="numero"><?= $abertos ?></strong>
-                <span class="rotulo-aberto">Abertos</span>
-            </div>
-            <div class="card">
-                <strong class="numero"><?= $andamento ?></strong>
-                <span class="rotulo-andamento">Em andamento</span>
-            </div>
-            <div class="card">
-                <strong class="numero"><?= $concluidos ?></strong>
-                <span class="rotulo-concluido">Concluídos</span>
-            </div>
-            <div class="card">
-                <strong class="numero"><?= $cancelados ?></strong>
-                <span class="rotulo-cancelado">Cancelados</span>
-            </div>
-        </section>
+    <section class="cards">
+        <div class="card card-borda-azul">
+            <strong class="numero"><?= $abertos ?></strong>
+            <span class="rotulo-aberto">Abertos</span>
+        </div>
+
+        <div class="card card-borda-amarela">
+            <strong class="numero"><?= $andamento ?></strong>
+            <span class="rotulo-andamento">Em andamento</span>
+        </div>
+
+        <div class="card card-borda-verde">
+            <strong class="numero"><?= $concluidos ?></strong>
+            <span class="rotulo-concluido">Concluídos</span>
+        </div>
+
+        <div class="card card-borda-vermelha">
+            <strong class="numero"><?= $cancelados ?></strong>
+            <span class="rotulo-cancelado">Cancelados</span>
+        </div>
+    </section>
+        
 
         <section class="cartao-tabela">
             <div class="abas">

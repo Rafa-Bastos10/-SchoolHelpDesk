@@ -7,9 +7,30 @@ if (!isset($_SESSION["id_usuario"])) {
     exit;
 }
 
+// Descobre o id_cliente correspondente ao usuário logado
+$idCliente = (int) ($_SESSION["id_cliente"] ?? 0);
+
+if ($idCliente === 0) {
+    $stmtUser = $pdo->prepare("SELECT email FROM usuario WHERE id = ? LIMIT 1");
+    $stmtUser->execute([$_SESSION["id_usuario"]]);
+    $userLogado = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
+    if ($userLogado) {
+        $stmtCli = $pdo->prepare("SELECT id FROM cliente WHERE email = ? LIMIT 1");
+        $stmtCli->execute([$userLogado["email"]]);
+        $cliLogado = $stmtCli->fetch(PDO::FETCH_ASSOC);
+
+        if ($cliLogado) {
+            $idCliente = (int) $cliLogado["id"];
+            $_SESSION["id_cliente"] = $idCliente;
+        }
+    }
+}
+
+// Exclui somente se o chamado pertencer ao cliente logado
 if (isset($_POST["excluir"])) {
-    $stmt = $pdo->prepare("DELETE FROM chamado WHERE id = ?");
-    $stmt->execute([$_POST["excluir"]]);
+    $stmt = $pdo->prepare("DELETE FROM chamado WHERE id = ? AND id_cliente = ?");
+    $stmt->execute([$_POST["excluir"], $idCliente]);
     header("Location: chamado.php");
     exit;
 }
@@ -17,8 +38,9 @@ if (isset($_POST["excluir"])) {
 $status = $_GET["status"] ?? "";
 $busca  = $_GET["busca"] ?? "";
 
-$sql = "SELECT * FROM chamado WHERE titulo LIKE ?";
-$params = ["%$busca%"];
+// Filtra apenas os chamados deste cliente
+$sql = "SELECT * FROM chamado WHERE id_cliente = ? AND titulo LIKE ?";
+$params = [$idCliente, "%$busca%"];
 
 if ($status != "") {
     $sql .= " AND status_chamado = ?";
@@ -49,7 +71,6 @@ $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="painel.php">Início</a>
             <a href="abrir_chamado.php">Abrir chamado</a>
             <a href="chamado.php" class="ativo">Meus chamados</a>
-            
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php">Meu perfil</a>
