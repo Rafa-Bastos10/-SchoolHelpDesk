@@ -1,3 +1,14 @@
+<?php
+if (!isset($pdo)) {
+    header("Location: ../admin.php");
+    exit;
+}
+
+$pagina      = $pagina ?? "inicio";
+$nomeUsuario = $nomeUsuario ?? ($_SESSION["nome"] ?? "Administrador");
+$mensagem    = $mensagem ?? "";
+$erro        = $erro ?? "";
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -31,16 +42,21 @@
             <span id="nomeUsuario"><?= htmlspecialchars($nomeUsuario) ?></span>
         </header>
 
-        <?php if ($mensagem !== ''): ?>
+        <?php if (!empty($mensagem)): ?>
             <div class="aviso sucesso"><?= htmlspecialchars($mensagem) ?></div>
         <?php endif; ?>
 
-        <?php if ($erro !== ''): ?>
+        <?php if (!empty($erro)): ?>
             <div class="aviso erro"><?= htmlspecialchars($erro) ?></div>
         <?php endif; ?>
 
         <?php if ($pagina === 'perfil'): ?>
-            <?php $inicial = strtoupper(substr(trim($usuarioLogado['nome']), 0, 1)); ?>
+            <?php
+            $nomePerfil  = $usuarioLogado['nome'] ?? $nomeUsuario;
+            $emailPerfil = $usuarioLogado['email'] ?? '';
+            $idPerfil    = $usuarioLogado['id'] ?? ($_SESSION['id_usuario'] ?? 0);
+            $inicial     = strtoupper(substr(trim($nomePerfil), 0, 1));
+            ?>
 
             <section class="titulo">
                 <div>
@@ -53,8 +69,8 @@
                 <div class="avatar"><?= htmlspecialchars($inicial) ?></div>
 
                 <div class="identificacao">
-                    <h2><?= htmlspecialchars($usuarioLogado['nome']) ?></h2>
-                    <p><?= htmlspecialchars($usuarioLogado['email']) ?></p>
+                    <h2><?= htmlspecialchars($nomePerfil) ?></h2>
+                    <p><?= htmlspecialchars($emailPerfil) ?></p>
                     <span class="nivel">Administrador</span>
                 </div>
             </section>
@@ -65,17 +81,17 @@
                 <div class="grade-informacoes">
                     <div class="item">
                         <span class="rotulo">Nome completo</span>
-                        <strong><?= htmlspecialchars($usuarioLogado['nome']) ?></strong>
+                        <strong><?= htmlspecialchars($nomePerfil) ?></strong>
                     </div>
 
                     <div class="item">
                         <span class="rotulo">E-mail</span>
-                        <strong><?= htmlspecialchars($usuarioLogado['email']) ?></strong>
+                        <strong><?= htmlspecialchars($emailPerfil) ?></strong>
                     </div>
 
                     <div class="item">
                         <span class="rotulo">Número da conta</span>
-                        <strong>#<?= str_pad((string) $usuarioLogado['id'], 4, '0', STR_PAD_LEFT) ?></strong>
+                        <strong>#<?= str_pad((string) $idPerfil, 4, '0', STR_PAD_LEFT) ?></strong>
                     </div>
 
                     <div class="item">

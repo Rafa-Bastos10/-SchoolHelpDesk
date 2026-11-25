@@ -57,6 +57,12 @@ $chamadosFiltrados = array_filter($chamados, function ($c) use ($filtroStatus, $
         <tbody>
             <?php if (count($chamadosFiltrados) > 0): ?>
                 <?php foreach ($chamadosFiltrados as $chamado): ?>
+                    <?php
+                        $classeStatus = 'aberto';
+                        if ($chamado['status_chamado'] === 'em andamento') $classeStatus = 'andamento';
+                        elseif ($chamado['status_chamado'] === 'concluido') $classeStatus = 'concluido';
+                        elseif ($chamado['status_chamado'] === 'cancelado') $classeStatus = 'cancelado';
+                    ?>
                     <tr>
                         <form method="POST" action="admin.php?pagina=chamados">
                             <input type="hidden" name="acao" value="atualizar_chamado">
@@ -80,7 +86,7 @@ $chamadosFiltrados = array_filter($chamados, function ($c) use ($filtroStatus, $
                             </td>
 
                             <td>
-                                <select name="status_chamado" class="select-tabela">
+                                <select name="status_chamado" class="select-tabela select-status <?= $classeStatus ?>" onchange="atualizarCorStatus(this)">
                                     <option value="aguardando" <?= $chamado['status_chamado'] === 'aguardando' ? 'selected' : '' ?>>Aguardando</option>
                                     <option value="em andamento" <?= $chamado['status_chamado'] === 'em andamento' ? 'selected' : '' ?>>Em andamento</option>
                                     <option value="concluido" <?= $chamado['status_chamado'] === 'concluido' ? 'selected' : '' ?>>Concluído</option>
@@ -102,3 +108,19 @@ $chamadosFiltrados = array_filter($chamados, function ($c) use ($filtroStatus, $
         </tbody>
     </table>
 </section>
+
+<script>
+    function atualizarCorStatus(select) {
+        select.classList.remove("aberto", "andamento", "concluido", "cancelado");
+
+        if (select.value === "em andamento") {
+            select.classList.add("andamento");
+        } else if (select.value === "concluido") {
+            select.classList.add("concluido");
+        } else if (select.value === "cancelado") {
+            select.classList.add("cancelado");
+        } else {
+            select.classList.add("aberto");
+        }
+    }
+</script>
