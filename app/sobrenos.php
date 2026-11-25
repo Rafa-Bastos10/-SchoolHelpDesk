@@ -8,7 +8,7 @@ require_once "init.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - SchoolHelpDesk</title>
-    <link rel="stylesheet" href="Styles.css/sobre.css">
+    <link rel="stylesheet" href="css/sobrenos.css">
 </head>
 <body>
     <!-- MENU -->

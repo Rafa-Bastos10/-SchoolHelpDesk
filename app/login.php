@@ -9,22 +9,17 @@ $pdo = database();
 function destinoPorNivel($nivel)
 {
     if ($nivel === "administrador") {
-        return "/admin.php";
+        return "/app/admin.php";
     }
 
     if ($nivel === "tecnico") {
-        return "/tecnico.php";
+        return "tecnico.php";
     }
 
     // cliente
-    return "/painel.php";
+    return "/app/painel.php";
 }
 
-// Se já estiver logado, vai direto para a página do seu nível
-if (isset($_SESSION["id_usuario"])) {
-    header("Location: " . destinoPorNivel($_SESSION["nivel"] ?? "cliente"));
-    exit;
-}
 
 $erro = "";
 $mensagem = "";
@@ -107,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <div class="lado-esquerdo">
             <div class="logo">
-                <img src="/imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
+                <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk - Juntos por uma escola que funciona melhor!">
             </div>
 
             <div class="texto-lateral">

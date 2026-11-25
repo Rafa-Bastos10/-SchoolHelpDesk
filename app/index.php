@@ -18,7 +18,7 @@
 
     <nav>
         <a href="index.php">Início</a>
-        <a href="sobre.php">Sobre</a>
+        <a href="sobrenos.php">Sobre</a>
         <a href="#contatos">Contato</a>
     </nav>
 
