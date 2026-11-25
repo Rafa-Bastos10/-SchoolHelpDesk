@@ -90,7 +90,7 @@ $chamados = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <main class="conteudo">
 
         <header class="topo">
-            <strong class="marca-topo">SchoolHelpdesk</strong>
+            <span class="marca-topo">Inicio /<strong> SchoolHelpDesk</strong></span>
             <span id="nomeUsuario"><?= htmlspecialchars($nomeUsuario) ?></span>
         </header>
 
