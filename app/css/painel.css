@@ -310,3 +310,34 @@ tr:hover td {
     background: #fee2e2;
     color: #dc2626;
 }
+
+/* Estilo das caixas do topo igual ao painel de admin */
+.card {
+    box-shadow: 0 4px 12px rgba(22, 33, 56, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(22, 33, 56, 0.08);
+}
+
+.card-borda-azul {
+    border-top: 3px solid #2c66f5;
+}
+
+.card-borda-amarela {
+    border-top: 3px solid #d97706;
+}
+
+.card-borda-verde {
+    border-top: 3px solid #16a34a;
+}
+
+.card-borda-vermelha {
+    border-top: 3px solid #dc2626;
+}
+
+.rotulo-cancelado {
+    color: #dc2626;
+}

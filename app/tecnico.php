@@ -21,6 +21,14 @@ const CARGOS = [
     'administrador' => 'Administrador'
 ];
 
+// Chaves = valor gravado no banco (coluna c.urgencia). Ajuste se for diferente.
+const URGENCIAS = [
+    'baixa' => 'Baixa',
+    'media' => 'Média',
+    'alta' => 'Alta',
+    'urgente' => 'Urgente'
+];
+
 // Funções pequenas usadas na página.
 function h($texto): string {
     return htmlspecialchars((string) $texto, ENT_QUOTES, 'UTF-8');
@@ -45,6 +53,16 @@ function opcoes(array $lista, string $selecionado = ''): string {
 
 function avisar(string $tipo, string $texto): void {
     $_SESSION['msg'] = [$tipo, $texto];
+}
+
+function urgencia($valor): string {
+    $valor = (string) $valor;
+    if ($valor === '') {
+        return '<span class="urgencia vazia">Não informada</span>';
+    }
+    $classe = isset(URGENCIAS[$valor]) ? $valor : 'vazia';
+    $rotulo = URGENCIAS[$valor] ?? $valor;
+    return '<span class="urgencia ' . h($classe) . '">' . h($rotulo) . '</span>';
 }
 
 // Só técnico pode acessar esta página.
@@ -119,11 +137,17 @@ if (!in_array($aba, ['inicio', 'chamados', 'historico', 'perfil'], true)) {
 $msg = $_SESSION['msg'] ?? null;
 unset($_SESSION['msg']);
 
-// Busca e filtro.
+// Busca e filtros.
 $busca = trim($_GET['busca'] ?? '');
+
 $filtro = $_GET['status'] ?? '';
 if (!isset(NOMES_STATUS[$filtro])) {
     $filtro = '';
+}
+
+$filtroUrg = $_GET['urgencia'] ?? '';
+if (!isset(URGENCIAS[$filtroUrg])) {
+    $filtroUrg = '';
 }
 
 // Carrega os dados necessários para a aba selecionada.
@@ -164,6 +188,11 @@ if ($aba === 'chamados') {
         $params[] = $filtro;
     }
 
+    if ($filtroUrg !== '') {
+        $where[] = 'c.urgencia = ?';
+        $params[] = $filtroUrg;
+    }
+
     if ($busca !== '') {
         $like = '%' . addcslashes($busca, '%_\\') . '%';
         $where[] = '(CAST(c.id AS CHAR) LIKE ? OR c.titulo LIKE ? OR a.nome LIKE ? OR cl.nome LIKE ?)';
@@ -171,7 +200,7 @@ if ($aba === 'chamados') {
     }
 
     // Técnico enxerga os chamados de todas as pessoas.
-    $sql = "SELECT c.id, c.titulo, c.descricao,
+    $sql = "SELECT c.id, c.titulo, c.descricao, c.urgencia,
                    c.data_chamado AS data, c.status_chamado AS status,
                    COALESCE(a.nome, 'Não informado') AS local,
                    COALESCE(cl.nome, 'Não informado') AS solicitante
