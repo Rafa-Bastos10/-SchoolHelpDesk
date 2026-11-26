@@ -9,15 +9,15 @@ $pdo = database();
 function destinoPorNivel($nivel)
 {
     if ($nivel === "administrador") {
-        return "/app/admin.php";
+        return "/admin.php";
     }
 
     if ($nivel === "tecnico") {
-        return "tecnico.php";
+        return "/tecnico.php";
     }
 
     // cliente
-    return "/app/painel.php";
+    return "/painel.php";
 }
 
 

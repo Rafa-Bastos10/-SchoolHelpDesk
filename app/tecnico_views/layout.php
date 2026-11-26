@@ -36,18 +36,25 @@ $abasStatus = ['' => 'Todos'] + [
 </head>
 <body>
 
-<aside class="menu-lateral">
-    <div class="logo">SchoolHelpDesk</div>
+<aside class="menu">
+    <div class="logo">
+            <img src="imagens/logo_schoolhelpdesk.png" alt="SchoolHelpDesk">
+        </div>
 
     <nav>
         <?php foreach ($menuPrincipal as $chave => $rotulo): ?>
-            <a href="tecnico.php?aba=<?= h($chave) ?>" class="<?= $aba === $chave ? 'ativo' : '' ?>">
+            <a href="tecnico.php?aba=<?= h($chave) ?>"
+               class="<?= $aba === $chave ? 'ativo' : '' ?>">
                 <?= h($rotulo) ?>
             </a>
         <?php endforeach; ?>
 
-        <span class="menu-titulo">Conta</span>
-        <a href="tecnico.php?aba=perfil" class="<?= $aba === 'perfil' ? 'ativo' : '' ?>">Meu perfil</a>
+        <span class="grupo">Conta</span>
+
+        <a href="tecnico.php?aba=perfil"
+           class="<?= $aba === 'perfil' ? 'ativo' : '' ?>">
+            Meu perfil
+        </a>
     </nav>
 
     <a href="tecnico.php?sair=1" class="sair">Sair</a>
@@ -249,6 +256,14 @@ $abasStatus = ['' => 'Todos'] + [
 
         <?php elseif ($aba === 'perfil'): ?>
 
+            <?php
+            $nomePerfil = (string) ($perfil['nome'] ?? '');
+            $inicialPerfil = function_exists('mb_substr')
+                ? mb_strtoupper(mb_substr(trim($nomePerfil), 0, 1))
+                : strtoupper(substr(trim($nomePerfil), 0, 1));
+            $cargoPerfil = CARGOS[$perfil['nivel'] ?? 'tecnico'] ?? 'Técnico';
+            ?>
+
             <div class="cabecalho">
                 <div>
                     <h1>Meu perfil</h1>
@@ -257,11 +272,11 @@ $abasStatus = ['' => 'Todos'] + [
             </div>
 
             <section class="painel perfil-topo">
-                <div class="avatar"><?= h(mb_strtoupper(mb_substr($perfil['nome'], 0, 1))) ?></div>
+                <div class="avatar"><?= h($inicialPerfil) ?></div>
                 <div>
-                    <h2><?= h($perfil['nome']) ?></h2>
-                    <p class="perfil-email"><?= h($perfil['email']) ?></p>
-                    <span class="etiqueta"><?= h(CARGOS[$perfil['nivel']] ?? $perfil['nivel']) ?></span>
+                    <h2><?= h($nomePerfil) ?></h2>
+                    <p class="perfil-email"><?= h($perfil['email'] ?? '') ?></p>
+                    <span class="etiqueta"><?= h($cargoPerfil) ?></span>
                 </div>
             </section>
 
@@ -270,19 +285,19 @@ $abasStatus = ['' => 'Todos'] + [
                 <div class="grade-info">
                     <div class="info">
                         <span>Nome completo</span>
-                        <strong><?= h($perfil['nome']) ?></strong>
+                        <strong><?= h($nomePerfil) ?></strong>
                     </div>
                     <div class="info">
                         <span>E-mail</span>
-                        <strong><?= h($perfil['email']) ?></strong>
+                        <strong><?= h($perfil['email'] ?? '') ?></strong>
                     </div>
                     <div class="info">
                         <span>Número da conta</span>
-                        <strong><?= h(num($perfil['id'])) ?></strong>
+                        <strong><?= h(num($perfil['id'] ?? 0)) ?></strong>
                     </div>
                     <div class="info">
                         <span>Tipo de usuário</span>
-                        <strong><?= h(CARGOS[$perfil['nivel']] ?? $perfil['nivel']) ?></strong>
+                        <strong><?= h($cargoPerfil) ?></strong>
                     </div>
                 </div>
             </section>

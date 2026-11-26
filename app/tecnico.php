@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . '/init.php';
 
@@ -16,7 +17,6 @@ const CLASSE_STATUS = [
     'cancelado' => 'cancelado'
 ];
 
-// Prioridades do chamado (valor no banco => texto na tela).
 const NOMES_PRIORIDADE = [
     'urgente' => 'Urgente',
     'alta' => 'Alta',
@@ -29,7 +29,7 @@ const CARGOS = [
     'administrador' => 'Administrador'
 ];
 
-// Funções pequenas usadas na página.
+// Funções utilizadas na página.
 function h($texto): string {
     return htmlspecialchars((string) $texto, ENT_QUOTES, 'UTF-8');
 }
@@ -44,10 +44,13 @@ function dataBr($data): string {
 
 function opcoes(array $lista, string $selecionado = ''): string {
     $html = '';
+
     foreach ($lista as $valor => $rotulo) {
         $marcado = (string) $valor === $selecionado ? ' selected' : '';
+
         $html .= '<option value="' . h($valor) . '"' . $marcado . '>' . h($rotulo) . '</option>';
     }
+
     return $html;
 }
 
@@ -65,8 +68,15 @@ $idUsuario = (int) $_SESSION['id_usuario'];
 
 // Sair da conta.
 if (isset($_GET['sair'])) {
-    unset($_SESSION['adm_usuario'], $_SESSION['id_usuario'], $_SESSION['nome'],
-          $_SESSION['email'], $_SESSION['nivel'], $_SESSION['id_cliente']);
+    unset(
+        $_SESSION['adm_usuario'],
+        $_SESSION['id_usuario'],
+        $_SESSION['nome'],
+        $_SESSION['email'],
+        $_SESSION['nivel'],
+        $_SESSION['id_cliente']
+    );
+
     header('Location: login.php');
     exit;
 }
@@ -82,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset(NOMES_STATUS[$status]) && read($pdo, 'chamado', 'id = ?', [$id])) {
                 update($pdo, 'chamado', ['status_chamado' => $status], 'id = ?', [$id]);
+
                 avisar('ok', 'Chamado ' . num($id) . ' atualizado para ' . NOMES_STATUS[$status] . '.');
             }
 
@@ -103,13 +114,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } elseif ($nova !== $confirma) {
                 avisar('erro', 'A confirmação não é igual à nova senha.');
             } else {
-                update($pdo, 'usuario', ['senha' => password_hash($nova, PASSWORD_DEFAULT)], 'id = ?', [$idUsuario]);
+                update(
+                    $pdo,
+                    'usuario',
+                    ['senha' => password_hash($nova, PASSWORD_DEFAULT)],
+                    'id = ?',
+                    [$idUsuario]
+                );
+
                 avisar('ok', 'Senha alterada com sucesso.');
             }
 
             header('Location: tecnico.php?aba=perfil');
             exit;
         }
+
     } catch (PDOException $e) {
         avisar('erro', 'Erro ao acessar o banco de dados. Tente novamente.');
         header('Location: tecnico.php');
@@ -119,6 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Define qual aba será exibida.
 $aba = $_GET['aba'] ?? 'inicio';
+
 if (!in_array($aba, ['inicio', 'chamados', 'historico', 'perfil'], true)) {
     $aba = 'inicio';
 }
@@ -130,15 +150,20 @@ unset($_SESSION['msg']);
 // Busca e filtro.
 $busca = trim($_GET['busca'] ?? '');
 $filtro = $_GET['status'] ?? '';
+
 if (!isset(NOMES_STATUS[$filtro])) {
     $filtro = '';
 }
 
 // Carrega os dados necessários para a aba selecionada.
 if ($aba === 'inicio') {
-    // Contagem por status (usada no quadro "Resumo").
+
+    // Contagem por status.
     $cont = array_fill_keys(array_keys(NOMES_STATUS), 0);
-    $linhas = $pdo->query('SELECT status_chamado, COUNT(*) AS qtd FROM chamado GROUP BY status_chamado');
+
+    $linhas = $pdo->query(
+        'SELECT status_chamado, COUNT(*) AS qtd FROM chamado GROUP BY status_chamado'
+    );
 
     foreach ($linhas as $linha) {
         if (isset($cont[$linha['status_chamado']])) {
@@ -148,9 +173,12 @@ if ($aba === 'inicio') {
 
     $total = array_sum($cont);
 
-    // Contagem por prioridade (usada nos cards do topo).
+    // Contagem por prioridade.
     $prio = array_fill_keys(array_keys(NOMES_PRIORIDADE), 0);
-    $linhas = $pdo->query('SELECT prioridade, COUNT(*) AS qtd FROM chamado GROUP BY prioridade');
+
+    $linhas = $pdo->query(
+        'SELECT prioridade, COUNT(*) AS qtd FROM chamado GROUP BY prioridade'
+    );
 
     foreach ($linhas as $linha) {
         if (isset($prio[$linha['prioridade']])) {
@@ -159,24 +187,29 @@ if ($aba === 'inicio') {
     }
 
     $cards = [];
+
     foreach (NOMES_PRIORIDADE as $valor => $rotulo) {
         $cards[] = [$prio[$valor], $valor, $rotulo];
     }
 
-    // Chamados atribuídos a este técnico que ainda não foram encerrados.
+    // Chamados atribuídos a este técnico.
     $stmt = $pdo->prepare(
         "SELECT id, titulo, prioridade
          FROM chamado
-         WHERE id_tecnico = ?
-           AND status_chamado IN ('aguardando', 'em andamento')
-         ORDER BY FIELD(prioridade, 'urgente', 'alta', 'media', 'baixa'), data_chamado DESC, id DESC
+         WHERE id_usuario = ?
+         AND status_chamado IN ('aguardando', 'em andamento')
+         ORDER BY FIELD(prioridade, 'urgente', 'alta', 'media', 'baixa'),
+         data_chamado DESC, id DESC
          LIMIT 7"
     );
+
     $stmt->execute([$idUsuario]);
     $meusChamados = $stmt->fetchAll();
 }
 
+// Todos os chamados.
 if ($aba === 'chamados') {
+
     $where = [];
     $params = [];
 
@@ -186,25 +219,28 @@ if ($aba === 'chamados') {
     }
 
     if ($busca !== '') {
-        // Aceita "#0001" ou "1" para buscar pelo número.
         $numero = ltrim(ltrim($busca, '#'), '0');
-        $likeNum = '%' . addcslashes($numero !== '' ? $numero : $busca, '%_\\') . '%';
-        $like = '%' . addcslashes($busca, '%_\\') . '%';
+
+        $likeNum = '%' . addcslashes($numero !== '' ? $numero : $busca, '%\_\\\\') . '%';
+        $like = '%' . addcslashes($busca, '%\_\\\\') . '%';
+
         $where[] = '(CAST(c.id AS CHAR) LIKE ? OR c.titulo LIKE ? OR a.nome LIKE ? OR cl.nome LIKE ?)';
+
         array_push($params, $likeNum, $like, $like, $like);
     }
 
-    // Técnico enxerga os chamados de todas as pessoas (somente leitura do responsável).
     $sql = "SELECT c.id, c.titulo,
-                   c.data_chamado AS data, c.status_chamado AS status,
+                   c.data_chamado AS data,
+                   c.status_chamado AS status,
                    COALESCE(a.nome, 'Não informado') AS local,
                    COALESCE(cl.nome, 'Não informado') AS solicitante,
                    COALESCE(t.nome, 'Não atribuído') AS tecnico
             FROM chamado c
             LEFT JOIN ambiente a ON a.id = c.id_ambiente
             LEFT JOIN cliente cl ON cl.id = c.id_cliente
-            LEFT JOIN usuario t ON t.id = c.id_tecnico";
+            LEFT JOIN usuario t ON t.id = c.id_usuario";
 
+    // Adiciona os filtros, quando existirem.
     if ($where) {
         $sql .= ' WHERE ' . implode(' AND ', $where);
     }
@@ -213,22 +249,27 @@ if ($aba === 'chamados') {
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
+
     $lista = $stmt->fetchAll();
 }
 
 // Histórico de atendimento: só chamados concluídos.
 if ($aba === 'historico') {
+
     $stmt = $pdo->prepare(
         "SELECT id, descricao, data_chamado AS data, status_chamado AS status
          FROM chamado
          WHERE status_chamado = 'concluido'
          ORDER BY data_chamado DESC, id DESC"
     );
+
     $stmt->execute();
     $historico = $stmt->fetchAll();
 }
 
+// Perfil do técnico.
 if ($aba === 'perfil') {
+
     $perfil = read($pdo, 'usuario', 'id = ?', [$idUsuario]);
 
     if (!$perfil) {
@@ -237,4 +278,5 @@ if ($aba === 'perfil') {
     }
 }
 
+// Carrega o layout.
 require __DIR__ . '/tecnico_views/layout.php';

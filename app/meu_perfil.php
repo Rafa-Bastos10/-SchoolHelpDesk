@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . "/init.php";
 
@@ -9,7 +10,7 @@ if (!isset($_SESSION["id_usuario"])) {
 $idConta = $_SESSION["id_usuario"];
 $nivelSessao = $_SESSION["nivel"] ?? "";
 
-// Cliente fica na tabela cliente; administrador e técnico ficam em usuario
+// Busca os dados na tabela correta
 $tabela = ($nivelSessao === "cliente") ? "cliente" : "usuario";
 
 $stmt = $pdo->prepare("SELECT * FROM $tabela WHERE id = ? LIMIT 1");
@@ -22,18 +23,29 @@ if (!$usuario) {
     exit;
 }
 
-// Na tabela cliente não existe a coluna nivel, então usa o da sessão
+// Identifica o tipo de usuário
 $nivel = $usuario["nivel"] ?? $nivelSessao;
 
 $nomes = [
     "administrador" => "Administrador",
-    "tecnico"       => "Técnico",
-    "cliente"       => "Cliente",
+    "tecnico" => "Técnico",
+    "cliente" => "Cliente"
 ];
+
 $nomeNivel = $nomes[$nivel] ?? "Usuário";
 
 $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
+
+// Define o painel de acordo com o nível
+if ($nivel === "tecnico") {
+    $paginaInicial = "tecnico.php";
+} elseif ($nivel === "administrador") {
+    $paginaInicial = "admin.php";
+} else {
+    $paginaInicial = "painel.php";
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -50,10 +62,19 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
         </div>
 
         <nav>
-            <a href="painel.php">Início</a>
-            <a href="abrir_chamado.php">Abrir chamado</a>
-            <a href="chamado.php">Meus chamados</a>
-            
+            <a href="<?= htmlspecialchars($paginaInicial) ?>">Início</a>
+
+            <?php if ($nivel === "tecnico"): ?>
+                <a href="tecnico.php?aba=chamados">Chamados</a>
+                <a href="tecnico.php?aba=historico">Histórico</a>
+
+            <?php elseif ($nivel === "administrador"): ?>
+                <a href="admin.php">Painel administrativo</a>
+
+            <?php else: ?>
+                <a href="abrir_chamado.php">Abrir chamado</a>
+                <a href="chamado.php">Meus chamados</a>
+            <?php endif; ?>
 
             <p class="grupo">CONTA</p>
             <a href="meu_perfil.php" class="ativo">Meu perfil</a>
@@ -66,7 +87,9 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
 
         <header class="topo">
             <span class="caminho">Conta / <strong>Meu Perfil</strong></span>
-            <span class="nome-topo"><?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?></span>
+            <span class="nome-topo">
+                <?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?>
+            </span>
         </header>
 
         <section class="titulo">
@@ -82,9 +105,17 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
             </div>
 
             <div class="identificacao">
-                <h2><?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?></h2>
-                <p><?= htmlspecialchars($usuario["email"], ENT_QUOTES, "UTF-8") ?></p>
-                <span class="nivel"><?= htmlspecialchars($nomeNivel, ENT_QUOTES, "UTF-8") ?></span>
+                <h2>
+                    <?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?>
+                </h2>
+
+                <p>
+                    <?= htmlspecialchars($usuario["email"], ENT_QUOTES, "UTF-8") ?>
+                </p>
+
+                <span class="nivel">
+                    <?= htmlspecialchars($nomeNivel, ENT_QUOTES, "UTF-8") ?>
+                </span>
             </div>
         </section>
 
@@ -92,29 +123,41 @@ $inicial = strtoupper(substr(trim($usuario["nome"]), 0, 1));
             <h2>Informações pessoais</h2>
 
             <div class="grade-informacoes">
+
                 <div class="item">
                     <span class="rotulo">Nome completo</span>
-                    <strong><?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?></strong>
+                    <strong>
+                        <?= htmlspecialchars($usuario["nome"], ENT_QUOTES, "UTF-8") ?>
+                    </strong>
                 </div>
 
                 <div class="item">
                     <span class="rotulo">E-mail</span>
-                    <strong><?= htmlspecialchars($usuario["email"], ENT_QUOTES, "UTF-8") ?></strong>
+                    <strong>
+                        <?= htmlspecialchars($usuario["email"], ENT_QUOTES, "UTF-8") ?>
+                    </strong>
                 </div>
 
                 <div class="item">
                     <span class="rotulo">Número da conta</span>
-                    <strong>#<?= str_pad((string) $usuario["id"], 4, "0", STR_PAD_LEFT) ?></strong>
+                    <strong>
+                        #<?= str_pad((string) $usuario["id"], 4, "0", STR_PAD_LEFT) ?>
+                    </strong>
                 </div>
 
                 <div class="item">
                     <span class="rotulo">Tipo de usuário</span>
-                    <strong><?= htmlspecialchars($nomeNivel, ENT_QUOTES, "UTF-8") ?></strong>
+                    <strong>
+                        <?= htmlspecialchars($nomeNivel, ENT_QUOTES, "UTF-8") ?>
+                    </strong>
                 </div>
+
             </div>
         </section>
 
-        <a href="painel.php" class="botao-voltar">Voltar ao painel</a>
+        <a href="<?= htmlspecialchars($paginaInicial) ?>" class="botao-voltar">
+            Voltar ao painel
+        </a>
 
     </main>
 

@@ -1,177 +1,172 @@
 /* BANNER SOBRE NÓS */
 .sobre-banner {
-    min-height: 210px;
+    min-height: 260px;
     background: linear-gradient(110deg, #062653, #07519b);
-    color: white;
-    padding: 35px 5%;
+    color: #fff;
+    padding: 35px 8%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     overflow: hidden;
 }
+
 .banner-texto {
     max-width: 700px;
 }
+
 .banner-texto span {
-    font-size: 12px;
-    letter-spacing: 4px;
-    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 700;
 }
+
 .banner-texto h1 {
     font-size: 30px;
     margin: 12px 0;
 }
+
 .banner-texto p {
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #dbe8f7;
 }
+
 .banner-icone {
     font-size: 110px;
     margin-right: 40px;
 }
+
 /* QUEM SOMOS */
 .quem-somos {
     display: flex;
     align-items: center;
-    gap: 30px;
-    padding: 35px 5%;
+    gap: 50px;
+    padding: 50px 8% 35px;
 }
+
 .imagem-sobre {
     width: 40%;
-    min-height: 220px;
+    min-height: 260px;
     background: linear-gradient(135deg, #0a3972, #168de0);
-    border-radius: 18px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(16, 47, 94, 0.12);
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: white;
+    color: #fff;
 }
+
 .imagem-conteudo span {
     font-size: 65px;
 }
+
 .imagem-conteudo h2 {
     font-size: 21px;
     margin: 10px;
 }
+
 .imagem-conteudo p {
     font-size: 14px;
 }
+
 .texto-sobre {
     flex: 1;
 }
+
 .texto-sobre h2 {
-    color: #102f70;
-    font-size: 26px;
+    color: #102f5e;
+    font-size: 28px;
     margin-bottom: 12px;
 }
+
 .texto-sobre p {
-    color: #173c79;
-    font-size: 14px;
-    line-height: 1.6;
+    color: #64758e;
+    font-size: 13px;
+    line-height: 1.8;
     margin-bottom: 12px;
 }
+
 /* MISSÃO, VISÃO E VALORES */
 .objetivos {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    padding: 0 3% 35px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 20px 5% 35px;
 }
+
 .objetivo-card {
-    background: #edf5fd;
+    background: #f0f6ff;
     border-radius: 17px;
-    padding: 20px;
+    padding: 25px 20px;
     text-align: center;
-    flex: 1;
-    max-width: 350px;
+    transition: .3s;
 }
+
+.objetivo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px #0a4b8515;
+}
+
 .objetivo-icone {
-    width: 50px;
-    height: 50px;
-    background: #d8eaff;
+    width: 65px;
+    height: 65px;
+    background: #d8ebff;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
-    margin: auto;
+    font-size: 28px;
+    margin: 0 auto 15px;
 }
+
 .objetivo-card h3 {
-    color: #102f70;
-    margin: 10px 0;
-    font-size: 18px;
+    color: #102f5e;
+    font-size: 16px;
+    margin-bottom: 12px;
 }
+
 .objetivo-card p {
-    color: #173c79;
-    font-size: 14px;
-    line-height: 1.5;
+    color: #64758e;
+    font-size: 12px;
+    line-height: 1.6;
 }
+
 /* NOSSO OBJETIVO */
 .nosso-objetivo {
     text-align: center;
-    padding: 25px 10% 45px;
+    padding: 25px 10% 50px;
 }
+
 .nosso-objetivo h2 {
-    color: #102f70;
-    font-size: 25px;
+    color: #102f5e;
+    font-size: 28px;
     margin-bottom: 15px;
 }
+
 .nosso-objetivo p {
-    color: #173c79;
-    font-size: 15px;
-    line-height: 1.7;
-}
-/* RODAPÉ */
-footer {
-    background: #062b59;
-    color: white;
-    padding: 30px 5%;
-}
-.footer-conteudo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-.footer-logo img {
-    width: 230px;
-    max-height: 100px;
-    object-fit: contain;
-}
-.footer-logo p {
+    color: #64758e;
     font-size: 13px;
-    color: #c4d8ee;
+    line-height: 1.8;
+    margin-bottom: 10px;
 }
-.footer-contatos {
-    display: flex;
-    gap: 60px;
-    flex-wrap: wrap;
-}
-.contato-grupo {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-.contato-grupo strong {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-.contato-grupo a {
-    color: #c4d8ee;
-    text-decoration: none;
-    font-size: 13px;
-    transition: 0.3s;
-}
-.contato-grupo a:hover {
-    color: #39a9ff;
-}
-.direitos {
-    text-align: center;
-    border-top: 1px solid #ffffff30;
-    padding-top: 18px;
-    margin-top: 25px;
-    font-size: 11px;
-    color: #c4d8ee;
+
+/* RESPONSIVO */
+@media (max-width: 800px) {
+    .quem-somos,
+    .sobre-banner {
+        flex-direction: column;
+    }
+
+    .imagem-sobre {
+        width: 100%;
+    }
+
+    .objetivos {
+        grid-template-columns: 1fr;
+    }
+
+    .banner-icone {
+        margin: 20px 0 0;
+    }
 }
