@@ -6,8 +6,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    color: #102f5e;
-    background: #fff;
+    background: #f7f8fa;
 }
 
 
@@ -163,7 +162,6 @@ body {
     align-items: center;
     gap: 50px;
     padding: 35px 8% 50px;
-    background: #fff;
 }
 
 .sobre-texto {
@@ -221,8 +219,6 @@ body {
     font-weight: 800;
     margin-right: 10px;
 }
-
-/* RODAPÉ */
 
 
 /* ===== RODAPÉ ===== */

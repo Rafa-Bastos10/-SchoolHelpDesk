@@ -29,31 +29,13 @@ require_once "init.php";
 </header>
 
 <!-- BANNER PRINCIPAL -->
-<section class="sobre-banner">
-    <div class="banner-texto">
-        <span>SOBRE O SCHOOLHELPDESK</span>
-        <h1>Tecnologia e suporte para facilitar o dia a dia escolar.</h1>
-        <p>
-            Uma plataforma criada para ajudar alunos e funcionários
-            a resolver problemas tecnológicos, eletrônicos e de
-            infraestrutura de forma rápida, organizada e eficiente.
-        </p>
-    </div>
-    <div class="banner-icone">💻</div>
+<section class="banner">
+    <img src="imagens/bannersobre.png" alt="banner pag sobre ">
 </section>
 
 <!-- QUEM SOMOS -->
-<section class="quem-somos">
-    <div class="imagem-sobre">
-        <div class="imagem-conteudo">
-            <span>💻</span>
-            <h2>Conectando pessoas e soluções</h2>
-            <p>Suporte tecnológico escolar</p>
-        </div>
-    </div>
-
     <div class="texto-sobre">
-        <h2>Quem somos?</h2>
+        <h1>Quem somos?</h1>
         <p>
             O SchoolHelpDesk é uma plataforma desenvolvida com o
             objetivo de facilitar a comunicação entre alunos,
@@ -79,7 +61,7 @@ require_once "init.php";
 <!-- MISSÃO, VISÃO E VALORES -->
 <section class="objetivos">
     <div class="objetivo-card">
-        <div class="objetivo-icone">🎯</div>
+        <div class="objetivo-icone"> <img src="imagens/alvo.png" alt="alvo"></div>
         <h3>Nossa missão</h3>
         <p>
             Facilitar a resolução de problemas escolares,
@@ -89,7 +71,7 @@ require_once "init.php";
     </div>
 
     <div class="objetivo-card">
-        <div class="objetivo-icone">👁️</div>
+        <div class="objetivo-icone"><img src="imagens/visao.png" alt="">visao</div>
         <h3>Nossa visão</h3>
         <p>
             Ser uma plataforma de referência no suporte
@@ -99,7 +81,7 @@ require_once "init.php";
     </div>
 
     <div class="objetivo-card">
-        <div class="objetivo-icone">⭐</div>
+        <div class="objetivo-icone"><img src="imagens/check.png" alt="simbolo check"></div>
         <h3>Nossos valores</h3>
         <p>
             Compromisso, responsabilidade, agilidade,
@@ -113,9 +95,8 @@ require_once "init.php";
 <section class="nosso-objetivo">
     <h2>Por que criamos o SchoolHelpDesk?</h2>
     <p>
-        Sabemos que problemas com computadores, equipamentos
-        eletrônicos, internet e outros recursos tecnológicos
-        podem prejudicar as atividades dentro da escola.
+        Sabemos que diversos problemas tecnicos e estruturais acontecem no ambiente escolar, 
+        podendo prejudicar as atividades dentro da escola e atrapalhar o processo de ensino-aprendizagem.
     </p>
     <p>
         Pensando nisso, desenvolvemos o SchoolHelpDesk para
